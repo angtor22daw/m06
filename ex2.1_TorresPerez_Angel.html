@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ca">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title>Càlcul de velocitats mitjanes</title>
+	</head>
+	<body>    
+		<p><b><u>APLICACIÓ PEL CÀLCUL DE VELOCITATS MITJANES</u></b></p>
+		<b>a) Introudeix les dades de velocitat en quilòmetres per hora (Km/h):<br></b>
+		<table>
+			<tbody>
+				<tr>
+					<td>Mostra de velocitat 1:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+					<td>Mostra de velocitat 2:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+				</tr>
+				 <tr>
+					<td>Mostra de velocitat 3:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+					<td>Mostra de velocitat 4:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+				 </tr>
+				 <tr>
+					<td>Mostra de velocitat 5:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+					<td>Mostra de velocitat 6:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+				 </tr>
+				 <tr>
+					<td>Mostra de velocitat 7:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+					<td>Mostra de velocitat 8:</td>
+					<td><input type="text" name="vel[]" size="5" maxlength="6" value=0></td>
+				 </tr>
+			</tbody>
+		</table>	
+		<br>
+        <b>b) Escull les unitats de velocitat del resultat:</b><br>
+        <input name="uv[]" value="kmh" type="checkbox" checked>Km per hora (Km/h)<br>
+        <input name="uv[]" value="mph" type="checkbox">Milles per hora (mph)<br>
+        <input name="uv[]" value="mps" type="checkbox">Metres per segon (m/s)<br>
+        <br>        
+        <button onclick='fCalculaMitjanes()'>Calcula mitjanes</button>
+		<button onclick='fNetejaDades()'>Neteja dades</button>
+		<p><b>RESULTATS:</b></p>
+		<p id="resultats"></p>
+		<button onclick='fNetejaResultats()'>Neteja resultats</button>
+		<script>
+			function fCalculaMitjanes() {
+				let mitjana=0;
+				let aVel;
+				var input = document.getElementsByName("vel[]");
+					for (let i = 0; i < input.length; i++) {
+						aVel = input[i];
+						mitjana=mitjana + parseFloat(aVel.value);
+		
+					}
+				mitjana = mitjana/input.length;
+				//document.getElementById("resultats").innerHTML = `La mitjana de velocitats es ${mitjana}.`;
+
+				// DETECTAR CHECKS DELS CHECKBOXS
+				let sortida="";
+				let calMph=0;
+				let calMps=0;
+
+				let inputUv = document.getElementsByName("uv[]");
+				for (let a = 0; a < inputUv.length; a++) {
+					if (inputUv[a].checked) {
+						switch (inputUv[a].value) {
+							case "kmh":
+								sortida+=`La mitjana de velocitats en <b>Kilometres</b> és ${mitjana.toFixed(2)} km/h. <br>`;
+								break;
+							case "mph":
+								calMph=mitjana * 0.621;
+								sortida+=`La mitjana de velocitats en <b>Milles per hora</b> és ${calMph.toFixed(2)} mph. <br>`;
+								break;
+							case "mps":
+								calMps=mitjana*(5/18);
+								sortida+=`La mitjana de velocitats en <b>Metres per segon</b> és ${calMps.toFixed(2)} m/s. <br>`;
+								break;
+							default:
+								break;
+						}
+					}
+					document.getElementById("resultats").innerHTML = `${sortida}`;
+				}
+			}
+			
+			function fNetejaDades() {
+				let aVel;
+				let input = document.getElementsByName("vel[]");
+				let inUv = document.getElementsByName("uv[]");
+				for (let i = 0; i < input.length; i++) {
+					aVel = input[i];
+					aVel.value=0; 
+					aVel.getElementByValue;
+				}
+				inUv[0].checked=true;
+				inUv[1].checked=false;
+				inUv[2].checked=false;
+			}
+						
+			function fNetejaResultats() {
+				document.getElementById("resultats").innerHTML = "";
+			}
+
+		</script>   
+	</body>
+</html>
